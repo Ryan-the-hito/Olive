@@ -4,6 +4,7 @@ class MyWidget(QWidget):  # 主窗口
         self.initUI()
 
     def initUI(self):
+        self.trax = 0
         self.setUpMainWindow()
         self.center()
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
@@ -833,6 +834,7 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.restoreOverrideCursor()
                 button_action.setChecked(False)
                 action3.setChecked(False)
+                self.trax = 0
             if gettext != 'None':
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
@@ -2155,6 +2157,33 @@ class MyWidget(QWidget):  # 主窗口
         if not button_action.isChecked():
             self.cancel()
             action3.setChecked(False)
+    
+    def tray_activate(self):  # 设置窗口显示
+        if self.trax == 0:
+            self.restorebutton()
+            QApplication.processEvents()
+            QApplication.restoreOverrideCursor()
+            self.everytimefirst()
+            QApplication.processEvents()
+            QApplication.restoreOverrideCursor()
+            self.show()
+            self.center()
+            QApplication.processEvents()
+            QApplication.restoreOverrideCursor()
+            self.setFocus()
+            self.raise_()
+            self.activateWindow()
+            button_action.setChecked(True)
+            action3.setChecked(True)
+        if self.trax == 1:
+            self.cancel()
+            button_action.setChecked(False)
+            action3.setChecked(False)
+        delist = [0, 1]
+        xlist = []
+        xlist.append(self.trax)
+        choolist = list(set(delist) - set(xlist))
+        self.trax = choolist[0]
 
     def center(self):  # 设置窗口居中
         qr = self.frameGeometry()

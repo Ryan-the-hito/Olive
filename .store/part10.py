@@ -9,6 +9,7 @@ if __name__ == '__main__':
     action4.triggered.connect(w4.activate)
     action5.triggered.connect(w4.onrunstart)
     button_action.triggered.connect(w3.key_activate)
+    tray.activated.connect(w3.tray_activate)
     w1.setStyleSheet(style_sheet_ori)
     w2.setStyleSheet(style_sheet_ori)
     w4.setStyleSheet(style_sheet_ori)
