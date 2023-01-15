@@ -4,7 +4,7 @@ class MyWidget(QWidget):  # 主窗口
         self.initUI()
 
     def initUI(self):
-        self.trax = 0
+        self.trax = 2
         self.setUpMainWindow()
         self.center()
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint)
@@ -834,7 +834,7 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.restoreOverrideCursor()
                 button_action.setChecked(False)
                 action3.setChecked(False)
-                self.trax = 0
+                self.clicktime = 0
             if gettext != 'None':
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
@@ -1486,102 +1486,114 @@ class MyWidget(QWidget):  # 主窗口
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
         for t in range(len(self.hidelist)):
+            result0 = ''
+            result = 0
+            
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
             pattern0 = re.compile(r'(.*?)\n~')
-            result0 = pattern0.findall(self.hidelist[t])
-            result0 = ''.join(result0)
+            resulta = pattern0.findall(self.hidelist[t])
+            if resulta != []:
+                result0 = ''.join(resulta)
 
             pattern = re.compile(r'~(.*?)~')
-            result = pattern.findall(self.hidelist[t])
-            result = int(''.join(result))
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-
-            if result0 == 'Finder':
+            resultb = pattern.findall(self.hidelist[t])
+            if resultb != []:
+                result = int(''.join(resultb))
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
-                cmd = f"""osascript -e '''
-                tell application "Finder"
-                    try
-                        set collapsed of window {result} to true
-                    on error errorMessage
-                        tell application "Finder" to activate
-                        delay 0.1
-                        tell application "System Events" to tell process "Finder"
-                            keystroke "m" using command down
-                        end tell
-                    end try
-                end tell
-                '''"""
-                os.system(cmd)
-                QApplication.processEvents()
-                QApplication.restoreOverrideCursor()
-            if result0 != 'Finder':
-                QApplication.processEvents()
-                QApplication.restoreOverrideCursor()
-                cmd = f"""osascript -e '''
-                tell application "System Events"
-                    tell application "{result0}"
+            
+            if result0 != '' and result != 0:
+                if result0 == 'Finder':
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    cmd = f"""osascript -e '''
+                    tell application "Finder"
                         try
-                            set miniaturized of window {result} to true
+                            set collapsed of window {result} to true
                         on error errorMessage
-                            tell application "{result0}" to activate
+                            tell application "Finder" to activate
                             delay 0.1
-                            tell application "System Events" to tell process "{result0}"
+                            tell application "System Events" to tell process "Finder"
                                 keystroke "m" using command down
                             end tell
                         end try
                     end tell
-                end tell'''"""
-                os.system(cmd)
-                QApplication.processEvents()
-                QApplication.restoreOverrideCursor()
+                    '''"""
+                    os.system(cmd)
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                if result0 != 'Finder':
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    cmd = f"""osascript -e '''
+                    tell application "System Events"
+                        tell application "{result0}"
+                            try
+                                set miniaturized of window {result} to true
+                            on error errorMessage
+                                tell application "{result0}" to activate
+                                delay 0.1
+                                tell application "System Events" to tell process "{result0}"
+                                    keystroke "m" using command down
+                                end tell
+                            end try
+                        end tell
+                    end tell'''"""
+                    os.system(cmd)
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
         for i in range(len(self.onlist)):
+            result0 = ''
+            result = 0
+            
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
             pattern0 = re.compile(r'(.*?)\n~')
-            result0 = pattern0.findall(self.onlist[i])
-            result0 = ''.join(result0)
+            resulta = pattern0.findall(self.onlist[i])
+            if resulta != []:
+                result0 = ''.join(resulta)
 
             pattern = re.compile(r'~(.*?)~')
-            result = pattern.findall(self.onlist[i])
-            result = ''.join(result)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-
-            if result0 == 'Finder':
+            resultb = pattern.findall(self.onlist[i])
+            if resultb != []:
+                result = ''.join(resultb)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
-                cmd = f"""osascript -e '''
-                tell application "Finder"
-                    try
-                        set collapsed of window {result} to false
-                    on error errorMessage
-                        reopen
-                        activate
-                    end try
-                end tell
-                '''"""
-                os.system(cmd)
-                QApplication.processEvents()
-                QApplication.restoreOverrideCursor()
-            if result0 != 'Finder':
-                QApplication.processEvents()
-                QApplication.restoreOverrideCursor()
-                cmd = f"""osascript -e '''
-                tell application "{result0}"
-                    try
-                        set miniaturized of window {result} to false
-                        activate
-                    on error errorMessage
-                        reopen
-                        activate
-                    end try
-                end tell'''"""
-                os.system(cmd)
-                QApplication.processEvents()
-                QApplication.restoreOverrideCursor()
+            
+            if result0 != '' and result != 0:
+                if result0 == 'Finder':
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    cmd = f"""osascript -e '''
+                    tell application "Finder"
+                        try
+                            set collapsed of window {result} to false
+                        on error errorMessage
+                            reopen
+                            activate
+                        end try
+                    end tell
+                    '''"""
+                    os.system(cmd)
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                if result0 != 'Finder':
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    cmd = f"""osascript -e '''
+                    tell application "{result0}"
+                        try
+                            set miniaturized of window {result} to false
+                            activate
+                        on error errorMessage
+                            reopen
+                            activate
+                        end try
+                    end tell'''"""
+                    os.system(cmd)
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
         self.onlist = []
         self.hidelist = []
 
@@ -2134,6 +2146,7 @@ class MyWidget(QWidget):  # 主窗口
             self.raise_()
             self.activateWindow()
             button_action.setChecked(True)
+            self.trax += 1
         if not action3.isChecked():
             self.cancel()
             button_action.setChecked(False)
@@ -2154,12 +2167,13 @@ class MyWidget(QWidget):  # 主窗口
             self.raise_()
             self.activateWindow()
             action3.setChecked(True)
+            self.trax += 1
         if not button_action.isChecked():
             self.cancel()
             action3.setChecked(False)
     
     def tray_activate(self):  # 设置窗口显示
-        if self.trax == 0:
+        if self.trax % 2 == 0:
             self.restorebutton()
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
@@ -2175,15 +2189,14 @@ class MyWidget(QWidget):  # 主窗口
             self.activateWindow()
             button_action.setChecked(True)
             action3.setChecked(True)
-        if self.trax == 1:
-            self.cancel()
+        if self.trax % 2 == 1:
+            QApplication.processEvents()
+            QApplication.restoreOverrideCursor()
+            self.close()
+            self.restorebutton()
             button_action.setChecked(False)
             action3.setChecked(False)
-        delist = [0, 1]
-        xlist = []
-        xlist.append(self.trax)
-        choolist = list(set(delist) - set(xlist))
-        self.trax = choolist[0]
+        self.trax += 1
 
     def center(self):  # 设置窗口居中
         qr = self.frameGeometry()
@@ -2205,6 +2218,7 @@ class MyWidget(QWidget):  # 主窗口
         QApplication.restoreOverrideCursor()
         self.close()
         self.restorebutton()
+        self.trax += 1
 
     def keyPressEvent(self, e):  # 当页面显示的时候，按下esc键可关闭窗口
         if e.key() == Qt.Key.Key_Escape.value:
