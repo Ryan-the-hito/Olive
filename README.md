@@ -1,4 +1,4 @@
-# Olive
+# 🫒Olive: A multi-window manager
 
 ![VperIw2](https://i.imgur.com/VperIw2.png)
 
@@ -61,10 +61,10 @@
 ## 已知问题：
 
 - **我用的设备是 M1 的电脑，所以好像我写的大部分软件只能在 Apple 芯片的电脑上运行。**
-- 还有一定的 bug，并不保证每一次都成功操作。已知：在刚刚打开软件的前几次操作可能不成功，可能卡住，目前原因不明，多试几次就好。
+- （已解决）~~还有一定的 bug，并不保证每一次都成功操作。已知：在刚刚打开软件的前几次操作可能不成功，可能卡住，目前原因不明，多试几次就好。~~
 
 - 由于本软件使用 AppleScript，而这个原生语言对于一些软件的窗口没有效用（这些软件不支持 AppleScript 的调度），所以可能在这些软件上 Olive 没发发挥作用。已知：对微信的朋友圈窗口、Telik无法准确调度。
 - 对 Finder 多窗口的支持似乎不够好，建议将 Finder 设置为 Tab 显示，FinderFix 这个免费软件可以做到这一点。
 - 由于 AppleScript 的特性，本软件只能检测本桌面显示的窗口和所有隐藏的窗口（包括其他桌面），因此会调出其他桌面的隐藏窗口。如果不想在不同的桌面之间不停跳转，可以考虑在 Mission Control 的设置里关闭“When switching to an application, switch to a Space with open windows for the application”
-- 只在 Monterey 系统上测试使用了，不知道对 Ventura 的支持如何，未与 Stage Manager 同时测试，不知道相容性如何。
+- 只在 Monterey 系统上测试使用了，不知道对 Ventura 的支持如何，未与 Stage Manager 同时测试，估计无法与 Stage Manager 共存。
 
