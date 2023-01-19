@@ -126,7 +126,7 @@ class window4(QWidget):  # Customization settings
 
     def onrunstart(self):
         if action5.isChecked():
-            self.counter = 5
+            self.counter = 3
             self.mytimer.start(1000)
         if not action5.isChecked():
             with open('showlist.txt', 'w', encoding='utf-8') as f0:

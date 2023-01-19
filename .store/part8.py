@@ -22,6 +22,26 @@ class MyWidget(QWidget):  # 主窗口
             cont = codecs.open('tarlist.txt', 'r', encoding='utf-8').read()
             with open(fulldir2, 'a', encoding='utf-8') as f0:
                 f0.write(cont)
+        self.ultraclick1 = 0
+        self.ultraclick2 = 0
+        self.ultraclick3 = 0
+        self.ultraclick4 = 0
+        self.ultraclick5 = 0
+        self.ultraclick6 = 0
+        self.ultraclick7 = 0
+        self.ultraclick8 = 0
+        self.ultraclick9 = 0
+        self.ultraclick10 = 0
+        self.ultraclick11 = 0
+        self.ultraclick12 = 0
+        self.ultraclick13 = 0
+        self.ultraclick14 = 0
+        self.ultraclick15 = 0
+        self.ultraclick16 = 0
+        self.ultraclick17 = 0
+        self.ultraclick18 = 0
+        self.ultraclick19 = 0
+        self.ultraclick20 = 0
 
     def everytimefirst(self):
         cont = codecs.open('showlist.txt', 'r', encoding='utf-8').read()
@@ -811,7 +831,6 @@ class MyWidget(QWidget):  # 主窗口
     def clickplus1(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt1.setDisabled(True)
         self.bt1.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -819,42 +838,70 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt1.text()
-            if gettext == 'None':
+        if ncount == 0:
+            self.ultraclick1 += 1
+            if self.ultraclick1 == 1:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                gettext = self.bt1.text()
+                if gettext == 'None':
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.cancel()
+                    button_action.setChecked(False)
+                    action3.setChecked(False)
+                if gettext != 'None':
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.onlist.append(gettext)
+            if self.ultraclick1 == 2:
+                self.bt1.setDisabled(True)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.cancel()
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
-                button_action.setChecked(False)
                 action3.setChecked(False)
-                self.clicktime = 0
-            if gettext != 'None':
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt1.setDisabled(True)
+            QApplication.processEvents()
+            QApplication.restoreOverrideCursor()
+            if self.clicktime < ncount:
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
-                self.onlist.append(gettext)
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+                self.clicktime += 1
+                gettext = self.bt1.text()
+                if gettext == 'None':
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.cancel()
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    button_action.setChecked(False)
+                    action3.setChecked(False)
+                if gettext != 'None':
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.onlist.append(gettext)
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus2(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt2.setDisabled(True)
         self.bt2.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -862,32 +909,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick2 += 1
+            if self.ultraclick2 == 1:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                gettext = self.bt2.text()
+                self.onlist.append(gettext)
+            if self.ultraclick2 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt2.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt2.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt2.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus3(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt3.setDisabled(True)
         self.bt3.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -895,32 +961,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick3 += 1
+            if self.ultraclick3 == 1:
+                gettext = self.bt3.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick3 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt3.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt3.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt3.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus4(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt4.setDisabled(True)
         self.bt4.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -928,32 +1013,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick4 += 1
+            if self.ultraclick4 == 1:
+                gettext = self.bt4.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick4 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt4.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt4.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt4.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus5(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt5.setDisabled(True)
         self.bt5.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -961,32 +1065,52 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick5 += 1
+            if self.ultraclick5 == 1:
+                gettext = self.bt5.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick5 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt5.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt5.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt5.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus6(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt6.setDisabled(True)
+        
         self.bt6.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -994,32 +1118,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick6 += 1
+            if self.ultraclick6 == 1:
+                gettext = self.bt6.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick6 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt6.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt6.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt6.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus7(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt7.setDisabled(True)
         self.bt7.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1027,32 +1170,52 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick7 += 1
+            if self.ultraclick7 == 1:
+                gettext = self.bt7.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick7 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt7.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt7.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt7.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus8(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt8.setDisabled(True)
+        
         self.bt8.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1060,32 +1223,52 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick8 += 1
+            if self.ultraclick8 == 1:
+                gettext = self.bt8.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick8 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt8.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt8.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt8.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus9(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt9.setDisabled(True)
+        
         self.bt9.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1093,32 +1276,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick9 += 1
+            if self.ultraclick9 == 1:
+                gettext = self.bt9.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick9 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt9.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt9.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt9.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus10(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt10.setDisabled(True)
         self.bt10.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1126,32 +1328,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick10 += 1
+            if self.ultraclick10 == 1:
+                gettext = self.bt10.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick10 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt10.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt10.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt10.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus11(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt11.setDisabled(True)
         self.bt11.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1159,32 +1380,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick11 += 1
+            if self.ultraclick11 == 1:
+                gettext = self.bt11.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick11 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt11.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt11.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt11.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus12(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt12.setDisabled(True)
         self.bt12.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1192,32 +1432,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick12 += 1
+            if self.ultraclick12 == 1:
+                gettext = self.bt12.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick12 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt12.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt12.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt12.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus13(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt13.setDisabled(True)
         self.bt13.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1225,32 +1484,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick13 += 1
+            if self.ultraclick13 == 1:
+                gettext = self.bt13.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick13 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt13.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt13.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt13.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus14(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt14.setDisabled(True)
         self.bt14.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1258,32 +1536,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick14 += 1
+            if self.ultraclick14 == 1:
+                gettext = self.bt14.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick14 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt14.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt14.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt14.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus15(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt15.setDisabled(True)
         self.bt15.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1291,32 +1588,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick15 += 1
+            if self.ultraclick15 == 1:
+                gettext = self.bt15.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick15 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt15.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt15.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt15.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus16(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt16.setDisabled(True)
         self.bt16.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1324,32 +1640,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick16 += 1
+            if self.ultraclick16 == 1:
+                gettext = self.bt16.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick16 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt16.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt16.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt16.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus17(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt17.setDisabled(True)
         self.bt17.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1357,32 +1692,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick17 += 1
+            if self.ultraclick17 == 1:
+                gettext = self.bt17.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick17 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt17.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt17.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt17.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus18(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt18.setDisabled(True)
         self.bt18.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1390,32 +1744,52 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick18 += 1
+            if self.ultraclick18 == 1:
+                gettext = self.bt18.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick18 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt18.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt18.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt18.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus19(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt19.setDisabled(True)
+        
         self.bt19.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1423,32 +1797,51 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick19 += 1
+            if self.ultraclick19 == 1:
+                gettext = self.bt19.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick19 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt19.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt19.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt19.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def clickplus20(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.bt20.setDisabled(True)
         self.bt20.setStyleSheet('''
             border: 4px outset black;
             background-color: #989896;
@@ -1456,32 +1849,52 @@ class MyWidget(QWidget):  # 主窗口
             padding: 1px;
             color: #000000''')
         ncount = int(codecs.open('multinum.txt', 'r', encoding='utf-8').read())
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
-        if self.clicktime < ncount:
+        if ncount == 0:
+            self.ultraclick20 += 1
+            if self.ultraclick20 == 1:
+                gettext = self.bt20.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.ultraclick20 == 2:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
+        if ncount != 0:
+            self.bt20.setDisabled(True)
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
-            self.clicktime += 1
-            gettext = self.bt20.text()
-            self.onlist.append(gettext)
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-        if self.clicktime == ncount:
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.showhide()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            self.cancel()
-            QApplication.processEvents()
-            QApplication.restoreOverrideCursor()
-            action3.setChecked(False)
-            button_action.setChecked(False)
+            if self.clicktime < ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.clicktime += 1
+                gettext = self.bt20.text()
+                self.onlist.append(gettext)
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+            if self.clicktime == ncount:
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.showhide()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                self.cancel()
+                QApplication.processEvents()
+                QApplication.restoreOverrideCursor()
+                action3.setChecked(False)
+                button_action.setChecked(False)
 
     def showhide(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        self.clicktime = 0
+        #self.clicktime = 0
         self.hidelist = list(set(self.showlist) - set(self.onlist))
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
@@ -1625,6 +2038,27 @@ class MyWidget(QWidget):  # 主窗口
         self.widg4.setVisible(False)
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
+        self.ultraclick1 = 0
+        self.ultraclick2 = 0
+        self.ultraclick3 = 0
+        self.ultraclick4 = 0
+        self.ultraclick5 = 0
+        self.ultraclick6 = 0
+        self.ultraclick7 = 0
+        self.ultraclick8 = 0
+        self.ultraclick9 = 0
+        self.ultraclick10 = 0
+        self.ultraclick11 = 0
+        self.ultraclick12 = 0
+        self.ultraclick13 = 0
+        self.ultraclick14 = 0
+        self.ultraclick15 = 0
+        self.ultraclick16 = 0
+        self.ultraclick17 = 0
+        self.ultraclick18 = 0
+        self.ultraclick19 = 0
+        self.ultraclick20 = 0
+        
 
     def restorebutton(self):
         QApplication.processEvents()
@@ -2147,6 +2581,7 @@ class MyWidget(QWidget):  # 主窗口
             self.activateWindow()
             button_action.setChecked(True)
             self.trax += 1
+            self.clicktime = 0
         if not action3.isChecked():
             self.cancel()
             button_action.setChecked(False)
@@ -2168,6 +2603,7 @@ class MyWidget(QWidget):  # 主窗口
             self.activateWindow()
             action3.setChecked(True)
             self.trax += 1
+            self.clicktime = 0
         if not button_action.isChecked():
             self.cancel()
             action3.setChecked(False)
@@ -2189,6 +2625,7 @@ class MyWidget(QWidget):  # 主窗口
             self.activateWindow()
             button_action.setChecked(True)
             action3.setChecked(True)
+            self.clicktime = 0
         if self.trax % 2 == 1:
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
