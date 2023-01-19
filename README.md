@@ -10,9 +10,9 @@
 
 随选模式演示：（与 Amethyst 同时使用）
 
-![bGhCYMI](https://i.imgur.com/bGhCYMI.gif)
-
 ![Show](https://github.com/Ryan-the-hito/Olive/blob/main/image/show.gif)
+
+![bGhCYMI](https://i.imgur.com/bGhCYMI.gif)
 
 ## 基本介绍：
 
@@ -68,6 +68,12 @@
    现在请愉快地多窗口操作吧！希望在繁重的多任务选择的时候会偶尔使用到 Olive！
    
    ![GJ9XNzY](https://i.imgur.com/GJ9XNzY.png)
+
+## 进阶使用：
+
+Olive 的设计是，当点击在 Menu Bar 上的图标的时候，就会显示弹出窗口选择界面，这样免去了在弹出的菜单中点击的麻烦。但是在一些 Macbook 上，Menu Bar 的空间不足以放下那么多图标，因此许多用户会使用隐藏图标的工具。如果图标被隐藏了，Olive 如何被唤起呢？Bartender 就提供了快捷键唤醒的方式，可以快速点选隐藏的图标。以下设置可供参考，当按下 Opt 和 ` 的时候，Bartender 就会点击已被隐藏了的 Olive 图标，窗口选择界面就会随之弹出。
+
+![heIJYI1](https://i.imgur.com/heIJYI1.png)
 
 ## 问题检查：
 
