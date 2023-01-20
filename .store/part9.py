@@ -126,7 +126,7 @@ class window4(QWidget):  # Customization settings
 
     def onrunstart(self):
         if action5.isChecked():
-            self.counter = 3
+            self.counter = 1
             self.mytimer.start(1000)
         if not action5.isChecked():
             with open('showlist.txt', 'w', encoding='utf-8') as f0:
@@ -229,7 +229,7 @@ class window4(QWidget):  # Customization settings
                     f0.write(showcont)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
-                self.counter = 5
+                self.counter = 1
                 self.mytimer.start(1000)
 
     def center(self):  # 设置窗口居中
