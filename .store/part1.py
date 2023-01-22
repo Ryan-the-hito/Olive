@@ -14,6 +14,12 @@ import re
 import os
 from pathlib import Path
 import webbrowser
+try:
+	from AppKit import NSWorkspace
+except ImportError:
+	print("can't import AppKit -- maybe you're running python from homebrew?")
+	print("try running with /usr/bin/python instead")
+	exit(1)
 
 app = QApplication(sys.argv)
 app.setQuitOnLastWindowClosed(False)
@@ -52,7 +58,6 @@ menu.addSeparator()
 
 # Add a Quit option to the menu.
 quit = QAction("Quit")
-quit.triggered.connect(app.quit)
 menu.addAction(quit)
 
 # Add the menu to the tray
