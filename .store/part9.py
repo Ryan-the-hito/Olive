@@ -140,6 +140,108 @@ class window4(QWidget):  # Customization settings
             #print(str(self.counter))
             active_app = NSWorkspace.sharedWorkspace().activeApplication()
             if active_app:
+                if active_app['NSApplicationName'] != self.last_active_name and active_app['NSApplicationName'] == 'Olive':
+                    # print('yyy')
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.last_active_name = active_app['NSApplicationName']
+                    # print(self.last_active_name)
+                    self.mytimer.stop()
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.onlist = []
+                    self.showlist0 = []
+                    resp = applescript.tell.app("System Events", '''
+                                            tell application "System Events"
+                                                set processName to name of processes
+                                                set processDic to processName
+                                                return processDic
+                                            end tell''')
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    assert resp.code == 0, resp.err
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    runlist = resp.out.split(', ')
+
+                    home_dir = str(Path.home())
+                    tarname1 = "OliveAppPath"
+                    fulldir1 = os.path.join(home_dir, tarname1)
+                    if not os.path.exists(fulldir1):
+                        os.mkdir(fulldir1)
+                    tarname2 = "tarlist.txt"
+                    fulldir2 = os.path.join(fulldir1, tarname2)
+                    cont = codecs.open(fulldir2, 'r', encoding='utf-8').read()
+                    tarlist = cont.split('\n')
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+
+                    for i in range(len(tarlist)):
+                        QApplication.processEvents()
+                        QApplication.restoreOverrideCursor()
+                        if tarlist[i] in runlist:
+                            QApplication.processEvents()
+                            QApplication.restoreOverrideCursor()
+                            cmd = f'''
+                                                on count_windows_on_current_space(process_name)
+                                                    tell application "System Events"
+                                                        tell process process_name
+                                                            return count of windows
+                                                        end tell
+                                                    end tell
+                                                end count_windows_on_current_space
+
+                                                on name_windows_on_current_space(process_name)
+                                                    tell application "System Events"
+                                                        tell process process_name
+                                                            #return name of windows
+                                                            set names to name of windows
+                                                            set AppleScript's text item delimiters to "///"
+                                                            set strnam to names as text
+                                                            return strnam
+                                                        end tell
+                                                    end tell
+                                                end name_windows_on_current_space
+
+                                                tell application "{tarlist[i]}"
+                                                    if my count_windows_on_current_space("{tarlist[i]}") > 0 then
+                                                        try
+                                                            return my name_windows_on_current_space("{tarlist[i]}")
+                                                        on error errorMessage
+                                                            return "F"
+                                                        end try
+                                                    end if
+                                                end tell'''
+                            QApplication.processEvents()
+                            QApplication.restoreOverrideCursor()
+                            result = subprocess.run(['osascript', '-e', cmd], capture_output=True, encoding='UTF-8')
+                            QApplication.processEvents()
+                            QApplication.restoreOverrideCursor()
+                            if result.stdout != '' and result.stdout != 'F':
+                                QApplication.processEvents()
+                                QApplication.restoreOverrideCursor()
+                                multilist = result.stdout.replace('\n', '').split('///')
+                                for n in range(len(multilist)):
+                                    QApplication.processEvents()
+                                    QApplication.restoreOverrideCursor()
+                                    if len(multilist[n]) > 15:
+                                        QApplication.processEvents()
+                                        QApplication.restoreOverrideCursor()
+                                        multilist[n] = multilist[n][0:12] + '...'
+                                for m in range(len(multilist)):
+                                    QApplication.processEvents()
+                                    QApplication.restoreOverrideCursor()
+                                    multilist[m] = str(tarlist[i]) + '\n~' + str(m + 1) + '~\n' + multilist[m]
+                                    self.showlist0.append(multilist[m])
+
+                    showcont = '☆'.join(self.showlist0)
+                    with open('showlist.txt', 'w', encoding='utf-8') as f0:
+                        f0.write(showcont)
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.counter = 5
+                    self.mytimer.start(1000)
+                    w3.everytimefirst()
                 if active_app['NSApplicationName'] != self.last_active_name and self.counter == 0:
                     #print('yyy')
                     QApplication.processEvents()
@@ -295,9 +397,18 @@ style_sheet_cha = '''
         border-radius: 9px;
 }
     QWidget{
-        border: 1px solid #ECECEC;
-        background: #ECECEC;
+        border: transparent;
+        background: transparent;
         border-radius: 20px;
+}
+    QWidget#Main {
+        border: 1px solid #ECECEC;
+        background-image:url(back4.png);
+        border-radius: 20px;
+}
+    QWidget#Main:before {
+        box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+        filter: blur(10px);
 }
     QPushButton{
         border: 2px solid #989896;

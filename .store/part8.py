@@ -811,6 +811,7 @@ class MyWidget(QWidget):  # 主窗口
         self.widg4.setLayout(blay4)
 
         widg0 = QWidget()
+        widg0.setObjectName("Main")
         blay0 = QVBoxLayout()
         blay0.setContentsMargins(20, 20, 20, 20)
         blay0.addStretch()
@@ -855,6 +856,12 @@ class MyWidget(QWidget):  # 主窗口
                     QApplication.restoreOverrideCursor()
                     self.onlist.append(gettext)
             if self.ultraclick1 == 2:
+                self.bt1.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
                 self.bt1.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
@@ -917,6 +924,13 @@ class MyWidget(QWidget):  # 主窗口
                 gettext = self.bt2.text()
                 self.onlist.append(gettext)
             if self.ultraclick2 == 2:
+                self.bt2.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt2.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -969,6 +983,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick3 == 2:
+                self.bt3.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt3.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1021,6 +1042,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick4 == 2:
+                self.bt4.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt4.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1073,6 +1101,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick5 == 2:
+                self.bt5.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt5.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1126,6 +1161,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick6 == 2:
+                self.bt6.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt6.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1178,6 +1220,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick7 == 2:
+                self.bt7.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt7.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1231,6 +1280,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick8 == 2:
+                self.bt8.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt8.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1284,6 +1340,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick9 == 2:
+                self.bt9.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt9.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1336,6 +1399,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick10 == 2:
+                self.bt10.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt10.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1388,6 +1458,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick11 == 2:
+                self.bt11.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt11.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1440,6 +1517,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick12 == 2:
+                self.bt12.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt12.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1492,6 +1576,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick13 == 2:
+                self.bt13.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt13.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1544,6 +1635,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick14 == 2:
+                self.bt14.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt14.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1596,6 +1694,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick15 == 2:
+                self.bt15.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt15.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1648,6 +1753,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick16 == 2:
+                self.bt16.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt16.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1700,6 +1812,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick17 == 2:
+                self.bt17.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt17.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1752,6 +1871,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick18 == 2:
+                self.bt18.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt18.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1805,6 +1931,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick19 == 2:
+                self.bt19.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt19.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
@@ -1857,6 +1990,13 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
             if self.ultraclick20 == 2:
+                self.bt20.setStyleSheet('''
+                    border: 4px outset white;
+                    background-color: #989896;
+                    border-radius: 12px;
+                    padding: 1px;
+                    color: #000000''')
+                self.bt20.setDisabled(True)
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
                 self.showhide()
