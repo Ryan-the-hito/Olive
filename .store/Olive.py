@@ -1,3 +1,653 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import sys
+from PyQt6.QtWidgets import (QWidget, QPushButton, QApplication,
+                             QLabel, QHBoxLayout, QVBoxLayout,
+                             QSystemTrayIcon, QMenu, QDialog, QLineEdit, QMenuBar, QTextEdit)
+from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtGui import QAction, QIcon
+import PyQt6.QtGui
+import subprocess
+import applescript
+import codecs
+import re
+import os
+from pathlib import Path
+import webbrowser
+try:
+	from AppKit import NSWorkspace
+except ImportError:
+	print("can't import AppKit -- maybe you're running python from homebrew?")
+	print("try running with /usr/bin/python instead")
+	exit(1)
+
+app = QApplication(sys.argv)
+app.setQuitOnLastWindowClosed(False)
+
+# Create the icon
+icon = QIcon("olivemenu.icns")
+
+# Create the tray
+tray = QSystemTrayIcon()
+tray.setIcon(icon)
+tray.setVisible(True)
+
+# Create the menu
+menu = QMenu()
+
+action5 = QAction("🫒 Start Olive!")
+action5.setCheckable(True)
+menu.addAction(action5)
+
+action3 = QAction("📜 Select windows!")
+action3.setCheckable(True)
+menu.addAction(action3)
+
+action4 = QAction("⚙️ Settings")
+menu.addAction(action4)
+
+menu.addSeparator()
+
+action2 = QAction("🆕 Check for Updates")
+menu.addAction(action2)
+
+action1 = QAction("ℹ️ About")
+menu.addAction(action1)
+
+menu.addSeparator()
+
+# Add a Quit option to the menu.
+quit = QAction("Quit")
+menu.addAction(quit)
+
+# Add the menu to the tray
+tray.setContextMenu(menu)
+
+# create a system menu
+button_action = QAction("&Select windows!")
+button_action.setCheckable(True)
+sysmenu = QMenuBar()
+file_menu = sysmenu.addMenu("&Actions")
+file_menu.addAction(button_action)
+
+
+class window_about(QWidget):  # 增加说明页面(About)
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):  # 说明页面内信息
+        self.setUpMainWindow()
+        self.resize(400, 380)
+        self.center()
+        self.setWindowTitle('About')
+        self.setFocus()
+        self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+
+    def setUpMainWindow(self):
+        widg1 = QWidget()
+        l1 = QLabel(self)
+        png = PyQt6.QtGui.QPixmap('olivemenu.png')  # 调用QtGui.QPixmap方法，打开一个图片，存放在变量png中
+        l1.setPixmap(png)  # 在l1里面，调用setPixmap命令，建立一个图像存放框，并将之前的图像png存放在这个框框里。
+        l1.setMaximumWidth(100)
+        l1.setMaximumHeight(100)
+        l1.setScaledContents(True)
+        blay1 = QHBoxLayout()
+        blay1.setContentsMargins(0, 0, 0, 0)
+        blay1.addStretch()
+        blay1.addWidget(l1)
+        blay1.addStretch()
+        widg1.setLayout(blay1)
+
+        widg2 = QWidget()
+        lbl0 = QLabel('Olive', self)
+        font = PyQt6.QtGui.QFont()
+        font.setFamily("Arial")
+        font.setBold(True)
+        font.setPointSize(20)
+        lbl0.setFont(font)
+        blay2 = QHBoxLayout()
+        blay2.setContentsMargins(0, 0, 0, 0)
+        blay2.addStretch()
+        blay2.addWidget(lbl0)
+        blay2.addStretch()
+        widg2.setLayout(blay2)
+
+        widg3 = QWidget()
+        lbl1 = QLabel('Version 0.1.9', self)
+        blay3 = QHBoxLayout()
+        blay3.setContentsMargins(0, 0, 0, 0)
+        blay3.addStretch()
+        blay3.addWidget(lbl1)
+        blay3.addStretch()
+        widg3.setLayout(blay3)
+
+        widg4 = QWidget()
+        lbl2 = QLabel('This app is open-sourced.', self)
+        blay4 = QHBoxLayout()
+        blay4.setContentsMargins(0, 0, 0, 0)
+        blay4.addStretch()
+        blay4.addWidget(lbl2)
+        blay4.addStretch()
+        widg4.setLayout(blay4)
+
+        widg5 = QWidget()
+        lbl3 = QLabel('本软件开源。', self)
+        blay5 = QHBoxLayout()
+        blay5.setContentsMargins(0, 0, 0, 0)
+        blay5.addStretch()
+        blay5.addWidget(lbl3)
+        blay5.addStretch()
+        widg5.setLayout(blay5)
+
+        widg6 = QWidget()
+        lbl4 = QLabel('♥‿♥', self)
+        blay6 = QHBoxLayout()
+        blay6.setContentsMargins(0, 0, 0, 0)
+        blay6.addStretch()
+        blay6.addWidget(lbl4)
+        blay6.addStretch()
+        widg6.setLayout(blay6)
+
+        widg7 = QWidget()
+        lbl5 = QLabel('※\(^o^)/※', self)
+        blay7 = QHBoxLayout()
+        blay7.setContentsMargins(0, 0, 0, 0)
+        blay7.addStretch()
+        blay7.addWidget(lbl5)
+        blay7.addStretch()
+        widg7.setLayout(blay7)
+
+        widg8 = QWidget()
+        bt1 = QPushButton('The Author', self)
+        bt1.setMaximumHeight(20)
+        bt1.setMinimumWidth(100)
+        bt1.clicked.connect(self.intro)
+        bt2 = QPushButton('Github Page', self)
+        bt2.setMaximumHeight(20)
+        bt2.setMinimumWidth(100)
+        bt2.clicked.connect(self.homepage)
+        blay8 = QHBoxLayout()
+        blay8.setContentsMargins(0, 0, 0, 0)
+        blay8.addStretch()
+        blay8.addWidget(bt1)
+        blay8.addWidget(bt2)
+        blay8.addStretch()
+        widg8.setLayout(blay8)
+
+        widg9 = QWidget()
+        bt3 = QPushButton('🍪\n¥5', self)
+        bt3.setMaximumHeight(50)
+        bt3.setMinimumHeight(50)
+        bt3.setMinimumWidth(50)
+        bt3.clicked.connect(self.donate)
+        bt4 = QPushButton('🥪\n¥10', self)
+        bt4.setMaximumHeight(50)
+        bt4.setMinimumHeight(50)
+        bt4.setMinimumWidth(50)
+        bt4.clicked.connect(self.donate2)
+        bt5 = QPushButton('🍜\n¥20', self)
+        bt5.setMaximumHeight(50)
+        bt5.setMinimumHeight(50)
+        bt5.setMinimumWidth(50)
+        bt5.clicked.connect(self.donate3)
+        bt6 = QPushButton('🍕\n¥50', self)
+        bt6.setMaximumHeight(50)
+        bt6.setMinimumHeight(50)
+        bt6.setMinimumWidth(50)
+        bt6.clicked.connect(self.donate4)
+        blay9 = QHBoxLayout()
+        blay9.setContentsMargins(0, 0, 0, 0)
+        blay9.addStretch()
+        blay9.addWidget(bt3)
+        blay9.addWidget(bt4)
+        blay9.addWidget(bt5)
+        blay9.addWidget(bt6)
+        blay9.addStretch()
+        widg9.setLayout(blay9)
+
+        widg10 = QWidget()
+        lbl6 = QLabel('© 2023 Ryan-the-hito. All rights reserved.', self)
+        blay10 = QHBoxLayout()
+        blay10.setContentsMargins(0, 0, 0, 0)
+        blay10.addStretch()
+        blay10.addWidget(lbl6)
+        blay10.addStretch()
+        widg10.setLayout(blay10)
+
+        main_h_box = QVBoxLayout()
+        main_h_box.addWidget(widg1)
+        main_h_box.addWidget(widg2)
+        main_h_box.addWidget(widg3)
+        main_h_box.addWidget(widg4)
+        main_h_box.addWidget(widg5)
+        main_h_box.addWidget(widg6)
+        main_h_box.addWidget(widg7)
+        main_h_box.addWidget(widg8)
+        main_h_box.addWidget(widg9)
+        main_h_box.addWidget(widg10)
+        main_h_box.addStretch()
+        self.setLayout(main_h_box)
+
+    def intro(self):
+        webbrowser.open('https://github.com/Ryan-the-hito/Ryan-the-hito')
+
+    def homepage(self):
+        webbrowser.open('https://github.com/Ryan-the-hito/Olive')
+
+    def donate(self):
+        dlg = CustomDialog()
+        dlg.exec()
+
+    def donate2(self):
+        dlg = CustomDialog2()
+        dlg.exec()
+
+    def donate3(self):
+        dlg = CustomDialog3()
+        dlg.exec()
+
+    def donate4(self):
+        dlg = CustomDialog4()
+        dlg.exec()
+
+    def center(self):  # 设置窗口居中
+        qr = self.frameGeometry()
+        cp = self.screen().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def activate(self):  # 设置窗口显示
+        self.show()
+        self.raise_()
+        self.activateWindow()
+
+
+class CustomDialog(QDialog):  # (About1)
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setUpMainWindow()
+        self.setWindowTitle("Thank you for your support!")
+        self.center()
+        self.resize(400, 390)
+        self.setFocus()
+        self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+
+    def setUpMainWindow(self):
+        widge_all = QWidget()
+        l1 = QLabel(self)
+        png = PyQt6.QtGui.QPixmap('wechat5.png')  # 调用QtGui.QPixmap方法，打开一个图片，存放在变量png中
+        l1.setPixmap(png)  # 在l1里面，调用setPixmap命令，建立一个图像存放框，并将之前的图像png存放在这个框框里。
+        l1.setMaximumSize(160, 240)
+        l1.setScaledContents(True)
+        l2 = QLabel(self)
+        png = PyQt6.QtGui.QPixmap('alipay5.png')  # 调用QtGui.QPixmap方法，打开一个图片，存放在变量png中
+        l2.setPixmap(png)  # 在l2里面，调用setPixmap命令，建立一个图像存放框，并将之前的图像png存放在这个框框里。
+        l2.setMaximumSize(160, 240)
+        l2.setScaledContents(True)
+        bk = QHBoxLayout()
+        bk.setContentsMargins(0, 0, 0, 0)
+        bk.addWidget(l1)
+        bk.addWidget(l2)
+        widge_all.setLayout(bk)
+
+        m1 = QLabel('Thank you for your kind support! 😊', self)
+        m2 = QLabel('I will write more interesting apps! 🥳', self)
+
+        widg_c = QWidget()
+        bt1 = QPushButton('Thank you!', self)
+        bt1.setMaximumHeight(20)
+        bt1.setMinimumWidth(100)
+        bt1.clicked.connect(self.cancel)
+        bt2 = QPushButton('Donate later~', self)
+        bt2.setMaximumHeight(20)
+        bt2.setMinimumWidth(100)
+        bt2.clicked.connect(self.cancel)
+        blay8 = QHBoxLayout()
+        blay8.setContentsMargins(0, 0, 0, 0)
+        blay8.addStretch()
+        blay8.addWidget(bt1)
+        blay8.addWidget(bt2)
+        blay8.addStretch()
+        widg_c.setLayout(blay8)
+
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(widge_all)
+        self.layout.addWidget(m1)
+        self.layout.addWidget(m2)
+        self.layout.addStretch()
+        self.layout.addWidget(widg_c)
+        self.layout.addStretch()
+        self.setLayout(self.layout)
+        self.setStyleSheet('''
+                QPushButton{
+                border: 1px outset grey;
+                background-color: #FFFFFF;
+                border-radius: 4px;
+                padding: 1px;
+                color: #000000
+        }
+            QPushButton:pressed{
+                border: 1px outset grey;
+                background-color: #0085FF;
+                border-radius: 4px;
+                padding: 1px;
+                color: #FFFFFF
+        }''')
+
+    def center(self):  # 设置窗口居中
+        qr = self.frameGeometry()
+        cp = self.screen().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def cancel(self):  # 设置取消键的功能
+        self.close()
+
+
+class CustomDialog2(QDialog):  # (About2)
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setUpMainWindow()
+        self.setWindowTitle("Thank you for your support!")
+        self.center()
+        self.resize(400, 390)
+        self.setFocus()
+        self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+
+    def setUpMainWindow(self):
+        widge_all = QWidget()
+        l1 = QLabel(self)
+        png = PyQt6.QtGui.QPixmap('wechat10.png')  # 调用QtGui.QPixmap方法，打开一个图片，存放在变量png中
+        l1.setPixmap(png)  # 在l1里面，调用setPixmap命令，建立一个图像存放框，并将之前的图像png存放在这个框框里。
+        l1.setMaximumSize(160, 240)
+        l1.setScaledContents(True)
+        l2 = QLabel(self)
+        png = PyQt6.QtGui.QPixmap('alipay10.png')  # 调用QtGui.QPixmap方法，打开一个图片，存放在变量png中
+        l2.setPixmap(png)  # 在l2里面，调用setPixmap命令，建立一个图像存放框，并将之前的图像png存放在这个框框里。
+        l2.setMaximumSize(160, 240)
+        l2.setScaledContents(True)
+        bk = QHBoxLayout()
+        bk.setContentsMargins(0, 0, 0, 0)
+        bk.addWidget(l1)
+        bk.addWidget(l2)
+        widge_all.setLayout(bk)
+
+        m1 = QLabel('Thank you for your kind support! 😊', self)
+        m2 = QLabel('I will write more interesting apps! 🥳', self)
+
+        widg_c = QWidget()
+        bt1 = QPushButton('Thank you!', self)
+        bt1.setMaximumHeight(20)
+        bt1.setMinimumWidth(100)
+        bt1.clicked.connect(self.cancel)
+        bt2 = QPushButton('Donate later~', self)
+        bt2.setMaximumHeight(20)
+        bt2.setMinimumWidth(100)
+        bt2.clicked.connect(self.cancel)
+        blay8 = QHBoxLayout()
+        blay8.setContentsMargins(0, 0, 0, 0)
+        blay8.addStretch()
+        blay8.addWidget(bt1)
+        blay8.addWidget(bt2)
+        blay8.addStretch()
+        widg_c.setLayout(blay8)
+
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(widge_all)
+        self.layout.addWidget(m1)
+        self.layout.addWidget(m2)
+        self.layout.addStretch()
+        self.layout.addWidget(widg_c)
+        self.layout.addStretch()
+        self.setLayout(self.layout)
+        self.setStyleSheet('''
+                QPushButton{
+                border: 1px outset grey;
+                background-color: #FFFFFF;
+                border-radius: 4px;
+                padding: 1px;
+                color: #000000
+        }
+            QPushButton:pressed{
+                border: 1px outset grey;
+                background-color: #0085FF;
+                border-radius: 4px;
+                padding: 1px;
+                color: #FFFFFF
+        }''')
+
+    def center(self):  # 设置窗口居中
+        qr = self.frameGeometry()
+        cp = self.screen().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def cancel(self):  # 设置取消键的功能
+        self.close()
+
+
+class CustomDialog3(QDialog):  # (About3)
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setUpMainWindow()
+        self.setWindowTitle("Thank you for your support!")
+        self.center()
+        self.resize(400, 390)
+        self.setFocus()
+        self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+
+    def setUpMainWindow(self):
+        widge_all = QWidget()
+        l1 = QLabel(self)
+        png = PyQt6.QtGui.QPixmap('wechat20.png')  # 调用QtGui.QPixmap方法，打开一个图片，存放在变量png中
+        l1.setPixmap(png)  # 在l1里面，调用setPixmap命令，建立一个图像存放框，并将之前的图像png存放在这个框框里。
+        l1.setMaximumSize(160, 240)
+        l1.setScaledContents(True)
+        l2 = QLabel(self)
+        png = PyQt6.QtGui.QPixmap('alipay20.png')  # 调用QtGui.QPixmap方法，打开一个图片，存放在变量png中
+        l2.setPixmap(png)  # 在l2里面，调用setPixmap命令，建立一个图像存放框，并将之前的图像png存放在这个框框里。
+        l2.setMaximumSize(160, 240)
+        l2.setScaledContents(True)
+        bk = QHBoxLayout()
+        bk.setContentsMargins(0, 0, 0, 0)
+        bk.addWidget(l1)
+        bk.addWidget(l2)
+        widge_all.setLayout(bk)
+
+        m1 = QLabel('Thank you for your kind support! 😊', self)
+        m2 = QLabel('I will write more interesting apps! 🥳', self)
+
+        widg_c = QWidget()
+        bt1 = QPushButton('Thank you!', self)
+        bt1.setMaximumHeight(20)
+        bt1.setMinimumWidth(100)
+        bt1.clicked.connect(self.cancel)
+        bt2 = QPushButton('Donate later~', self)
+        bt2.setMaximumHeight(20)
+        bt2.setMinimumWidth(100)
+        bt2.clicked.connect(self.cancel)
+        blay8 = QHBoxLayout()
+        blay8.setContentsMargins(0, 0, 0, 0)
+        blay8.addStretch()
+        blay8.addWidget(bt1)
+        blay8.addWidget(bt2)
+        blay8.addStretch()
+        widg_c.setLayout(blay8)
+
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(widge_all)
+        self.layout.addWidget(m1)
+        self.layout.addWidget(m2)
+        self.layout.addStretch()
+        self.layout.addWidget(widg_c)
+        self.layout.addStretch()
+        self.setLayout(self.layout)
+        self.setStyleSheet('''
+                QPushButton{
+                border: 1px outset grey;
+                background-color: #FFFFFF;
+                border-radius: 4px;
+                padding: 1px;
+                color: #000000
+        }
+            QPushButton:pressed{
+                border: 1px outset grey;
+                background-color: #0085FF;
+                border-radius: 4px;
+                padding: 1px;
+                color: #FFFFFF
+        }''')
+
+    def center(self):  # 设置窗口居中
+        qr = self.frameGeometry()
+        cp = self.screen().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def cancel(self):  # 设置取消键的功能
+        self.close()
+
+
+class CustomDialog4(QDialog):  # (About4)
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setUpMainWindow()
+        self.setWindowTitle("Thank you for your support!")
+        self.center()
+        self.resize(400, 390)
+        self.setFocus()
+        self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+
+    def setUpMainWindow(self):
+        widge_all = QWidget()
+        l1 = QLabel(self)
+        png = PyQt6.QtGui.QPixmap('wechat50.png')  # 调用QtGui.QPixmap方法，打开一个图片，存放在变量png中
+        l1.setPixmap(png)  # 在l1里面，调用setPixmap命令，建立一个图像存放框，并将之前的图像png存放在这个框框里。
+        l1.setMaximumSize(160, 240)
+        l1.setScaledContents(True)
+        l2 = QLabel(self)
+        png = PyQt6.QtGui.QPixmap('alipay50.png')  # 调用QtGui.QPixmap方法，打开一个图片，存放在变量png中
+        l2.setPixmap(png)  # 在l2里面，调用setPixmap命令，建立一个图像存放框，并将之前的图像png存放在这个框框里。
+        l2.setMaximumSize(160, 240)
+        l2.setScaledContents(True)
+        bk = QHBoxLayout()
+        bk.setContentsMargins(0, 0, 0, 0)
+        bk.addWidget(l1)
+        bk.addWidget(l2)
+        widge_all.setLayout(bk)
+
+        m1 = QLabel('Thank you for your kind support! 😊', self)
+        m2 = QLabel('I will write more interesting apps! 🥳', self)
+
+        widg_c = QWidget()
+        bt1 = QPushButton('Thank you!', self)
+        bt1.setMaximumHeight(20)
+        bt1.setMinimumWidth(100)
+        bt1.clicked.connect(self.cancel)
+        bt2 = QPushButton('Donate later~', self)
+        bt2.setMaximumHeight(20)
+        bt2.setMinimumWidth(100)
+        bt2.clicked.connect(self.cancel)
+        blay8 = QHBoxLayout()
+        blay8.setContentsMargins(0, 0, 0, 0)
+        blay8.addStretch()
+        blay8.addWidget(bt1)
+        blay8.addWidget(bt2)
+        blay8.addStretch()
+        widg_c.setLayout(blay8)
+
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(widge_all)
+        self.layout.addWidget(m1)
+        self.layout.addWidget(m2)
+        self.layout.addStretch()
+        self.layout.addWidget(widg_c)
+        self.layout.addStretch()
+        self.setLayout(self.layout)
+        self.setStyleSheet('''
+                QPushButton{
+                border: 1px outset grey;
+                background-color: #FFFFFF;
+                border-radius: 4px;
+                padding: 1px;
+                color: #000000
+        }
+            QPushButton:pressed{
+                border: 1px outset grey;
+                background-color: #0085FF;
+                border-radius: 4px;
+                padding: 1px;
+                color: #FFFFFF
+        }''')
+
+    def center(self):  # 设置窗口居中
+        qr = self.frameGeometry()
+        cp = self.screen().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def cancel(self):  # 设置取消键的功能
+        self.close()
+
+
+class window_update(QWidget):  # 增加更新页面（Check for Updates）
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):  # 说明页面内信息
+
+        lbl = QLabel('Current Version: 0.1.9', self)
+        lbl.move(110, 75)
+
+        lbl0 = QLabel('Check Now:', self)
+        lbl0.move(30, 20)
+
+        bt1 = QPushButton('Check Github', self)
+        bt1.clicked.connect(self.upd)
+        bt1.move(110, 15)
+
+        bt2 = QPushButton('Check Baidu Net Disk', self)
+        bt2.clicked.connect(self.upd2)
+        bt2.move(110, 45)
+
+        self.resize(300, 110)
+        self.center()
+        self.setWindowTitle('Check for Updates')
+        self.setFocus()
+        self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+
+    def upd(self):
+        webbrowser.open('https://github.com/Ryan-the-hito/Olive/releases')
+
+    def upd2(self):
+        webbrowser.open('https://pan.baidu.com/s/1trV85o0hfrzgnfGHXkgawQ?pwd=q5y5')
+
+    def center(self):  # 设置窗口居中
+        qr = self.frameGeometry()
+        cp = self.screen().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def activate(self):  # 设置窗口显示
+        self.show()
+        self.raise_()
+        self.activateWindow()
+
+
 class MyWidget(QWidget):  # 主窗口
     def __init__(self):
         super().__init__()
@@ -2034,14 +2684,11 @@ class MyWidget(QWidget):  # 主窗口
     def showhide(self):
         QApplication.processEvents()
         QApplication.restoreOverrideCursor()
-        #self.clicktime = 0
         self.hidelist = list(set(self.showlist) - set(self.onlist))
-        QApplication.processEvents()
-        QApplication.restoreOverrideCursor()
         for t in range(len(self.hidelist)):
             result0 = ''
             result = 0
-            
+
             QApplication.processEvents()
             QApplication.restoreOverrideCursor()
             pattern0 = re.compile(r'(.*?)\n~')
@@ -2055,24 +2702,24 @@ class MyWidget(QWidget):  # 主窗口
                 result = int(''.join(resultb))
                 QApplication.processEvents()
                 QApplication.restoreOverrideCursor()
-            
+
             if result0 != '' and result != 0:
                 if result0 == 'Finder':
                     QApplication.processEvents()
                     QApplication.restoreOverrideCursor()
                     cmd = f"""osascript -e '''
-                    tell application "Finder"
-                        try
-                            set collapsed of window {result} to true
-                        on error errorMessage
-                            tell application "Finder" to activate
-                            delay 0.1
-                            tell application "System Events" to tell process "Finder"
-                                keystroke "m" using command down
+                            tell application "Finder"
+                                try
+                                    set collapsed of window {result} to true
+                                on error errorMessage
+                                    tell application "Finder" to activate
+                                    delay 0.1
+                                    tell application "System Events" to tell process "Finder"
+                                        keystroke "m" using command down
+                                    end tell
+                                end try
                             end tell
-                        end try
-                    end tell
-                    '''"""
+                            '''"""
                     os.system(cmd)
                     QApplication.processEvents()
                     QApplication.restoreOverrideCursor()
@@ -2080,22 +2727,24 @@ class MyWidget(QWidget):  # 主窗口
                     QApplication.processEvents()
                     QApplication.restoreOverrideCursor()
                     cmd = f"""osascript -e '''
-                    tell application "System Events"
-                        tell application "{result0}"
-                            try
-                                set miniaturized of window {result} to true
-                            on error errorMessage
-                                tell application "{result0}" to activate
-                                delay 0.1
-                                tell application "System Events" to tell process "{result0}"
-                                    keystroke "m" using command down
+                            tell application "System Events"
+                                tell application "{result0}"
+                                    try
+                                        set miniaturized of window {result} to true
+                                    end try
+                                    try
+                                        tell application "{result0}" to activate
+                                        -- delay 0.1
+                                        tell application "System Events" to tell process "{result0}"
+                                            keystroke "m" using command down
+                                        end tell
+                                    end try
                                 end tell
-                            end try
-                        end tell
-                    end tell'''"""
+                            end tell'''"""
                     os.system(cmd)
                     QApplication.processEvents()
                     QApplication.restoreOverrideCursor()
+
         for i in range(len(self.onlist)):
             result0 = ''
             result = 0
@@ -2115,23 +2764,34 @@ class MyWidget(QWidget):  # 主窗口
                 QApplication.restoreOverrideCursor()
             
             if result0 != '' and result != 0:
+                first_name = result0 + '\n~' + result + '~\n'
+                window_name = self.onlist[i].replace(first_name, '').replace('\n', '')
                 if result0 == 'Finder':
                     QApplication.processEvents()
                     QApplication.restoreOverrideCursor()
                     cmd = f"""osascript -e '''
                     tell application "Finder"
                         try
-                            set collapsed of window {result} to false
+                            tell application "System Events"
+	                            tell process "Dock"
+                                    set appIcon to UI element ("Finder") of list 1
+                                    perform action "AXShowMenu" of appIcon
+                                    delay 0.2
+                                    click menu item "{window_name}" of menu 1 of appIcon
+                                    delay 0.2
+                                end tell
+                            end tell
                         on error errorMessage
-                            reopen
-                            activate
+                            set collapsed of window {result} to false
                         end try
                     end tell
                     '''"""
                     os.system(cmd)
                     QApplication.processEvents()
                     QApplication.restoreOverrideCursor()
-                if result0 != 'Finder':
+                if result0 == 'Music' or result0 == 'Photos' or result0 == 'Messages' or result0 == 'Reminders' or \
+                        result0 == 'Calendar' or result0 == 'Notes' or result0 == 'Podcasts' or result0 == 'Contacts' \
+                        or result0 == 'Calculator' or result0 == 'Font Book':
                     QApplication.processEvents()
                     QApplication.restoreOverrideCursor()
                     cmd = f"""osascript -e '''
@@ -2142,6 +2802,28 @@ class MyWidget(QWidget):  # 主窗口
                         on error errorMessage
                             reopen
                             activate
+                        end try
+                    end tell'''"""
+                    os.system(cmd)
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                if result0 != 'Finder' and result0 != 'Music' and result0 != 'Photos' and result0 != 'Messages' \
+                    and result0 != 'Reminders' and result0 != 'Calendar' and result0 != 'Notes' and result0 !='Podcasts' \
+                    and result0 != 'Contacts' and result0 != 'Calculator' and result0 != 'Font Book':
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    cmd = f"""osascript -e '''
+                    tell application "{result0}"
+                        try
+                            tell application "System Events"
+                                tell process "Dock"
+                                    set appIcon to UI element ("{result0}") of list 1
+                                    perform action "AXShowMenu" of appIcon
+                                    delay 0.2
+                                    click menu item "{window_name}" of menu 1 of appIcon
+                                    delay 0.2
+                                end tell
+                            end tell
                         end try
                     end tell'''"""
                     os.system(cmd)
@@ -2800,3 +3482,545 @@ class MyWidget(QWidget):  # 主窗口
     def keyPressEvent(self, e):  # 当页面显示的时候，按下esc键可关闭窗口
         if e.key() == Qt.Key.Key_Escape.value:
             self.close()
+
+
+class window4(QWidget):  # Customization settings
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+        w3 = MyWidget()
+
+    def initUI(self):  # 设置窗口内布局
+        self.setUpMainWindow()
+        self.resize(839, 475)
+        self.center()
+        self.setWindowTitle('Customization settings')
+        self.setFocus()
+
+    def setUpMainWindow(self):
+        QApplication.processEvents()
+        QApplication.restoreOverrideCursor()
+
+        lbl1 = QLabel('Number of side-by-side windows:', self)
+
+        self.le1 = QLineEdit(self)
+        ncount = codecs.open('multinum.txt', 'r', encoding='utf-8').read()
+        self.le1.setText(ncount)
+
+        QApplication.processEvents()
+        QApplication.restoreOverrideCursor()
+
+        lbl2 = QLabel('Apps at running (copy and paste the apps you want to control from this frame to the one below):', self)
+
+        self.te1 = QTextEdit(self)
+        resp = applescript.tell.app("System Events", '''
+            tell application "System Events"
+                set processName to name of processes
+                set processDic to processName
+                return processDic
+            end tell''')
+        assert resp.code == 0, resp.err
+        runnin = resp.out.replace(', ', '\n')
+        runninlist = runnin.split('\n')
+        runninlist.sort()
+        runnin2 = '\n'.join(runninlist)
+        self.te1.setText(runnin2)
+
+        QApplication.processEvents()
+        QApplication.restoreOverrideCursor()
+
+        lbl3 = QLabel('Apps to control (one app each line):', self)
+
+        self.te2 = QTextEdit(self)
+        home_dir = str(Path.home())
+        tarname1 = "OliveAppPath"
+        fulldir1 = os.path.join(home_dir, tarname1)
+        if not os.path.exists(fulldir1):
+            os.mkdir(fulldir1)
+        tarname2 = "tarlist.txt"
+        fulldir2 = os.path.join(fulldir1, tarname2)
+        cont = codecs.open(fulldir2, 'r', encoding='utf-8').read()
+        self.te2.setText(cont)
+
+        btn4_1 = QPushButton('Save', self)
+        btn4_1.setMaximumHeight(20)
+        btn4_1.setMinimumWidth(80)
+        btn4_1.clicked.connect(self.saveapps)
+
+        widg1 = QWidget()
+        blay1 = QHBoxLayout()
+        blay1.setContentsMargins(0, 0, 0, 0)
+        blay1.addWidget(lbl1)
+        blay1.addWidget(self.le1)
+        blay1.addStretch()
+        widg1.setLayout(blay1)
+
+        widg2 = QWidget()
+        blay2 = QHBoxLayout()
+        blay2.setContentsMargins(0, 0, 0, 0)
+        blay2.addWidget(lbl2)
+        blay2.addStretch()
+        widg2.setLayout(blay2)
+
+        widg3 = QWidget()
+        blay3 = QVBoxLayout()
+        blay3.setContentsMargins(0, 0, 0, 0)
+        blay3.addWidget(widg2)
+        blay3.addWidget(self.te1)
+        widg3.setLayout(blay3)
+
+        widg4 = QWidget()
+        blay4 = QHBoxLayout()
+        blay4.setContentsMargins(0, 0, 0, 0)
+        blay4.addWidget(lbl3)
+        blay4.addStretch()
+        widg4.setLayout(blay4)
+
+        widg5 = QWidget()
+        blay5 = QVBoxLayout()
+        blay5.setContentsMargins(0, 0, 0, 0)
+        blay5.addWidget(widg4)
+        blay5.addWidget(self.te2)
+        widg5.setLayout(blay5)
+
+        blay6 = QVBoxLayout()
+        blay6.setContentsMargins(20, 20, 20, 20)
+        blay6.addWidget(widg1)
+        blay6.addWidget(widg3)
+        blay6.addWidget(widg5)
+        blay6.addWidget(btn4_1)
+        self.setLayout(blay6)
+        self.mytimer = QTimer(self)
+        self.mytimer.timeout.connect(self.onTimer)
+        self.last_active_name = None
+
+    def saveapps(self):
+        QApplication.processEvents()
+        QApplication.restoreOverrideCursor()
+        with open('multinum.txt', 'w', encoding='utf-8') as f0:
+            f0.write(self.le1.text())
+
+        home_dir = str(Path.home())
+        tarname1 = "OliveAppPath"
+        fulldir1 = os.path.join(home_dir, tarname1)
+        if not os.path.exists(fulldir1):
+            os.mkdir(fulldir1)
+        tarname2 = "tarlist.txt"
+        fulldir2 = os.path.join(fulldir1, tarname2)
+        cont = self.te2.toPlainText()
+        with open(fulldir2, 'w', encoding='utf-8') as f0:
+            f0.write(cont)
+        self.close()
+
+    def onrunstart(self):
+        if action5.isChecked():
+            self.counter = 5
+            self.mytimer.start(1000)
+        if not action5.isChecked():
+            with open('showlist.txt', 'w', encoding='utf-8') as f0:
+                f0.write('')
+
+    def onTimer(self):
+        if action5.isChecked():
+            self.counter -= 1
+            #print(str(self.counter))
+            active_app = NSWorkspace.sharedWorkspace().activeApplication()
+            if active_app:
+                if active_app['NSApplicationName'] != self.last_active_name and active_app['NSApplicationName'] == 'Olive':
+                    # print('yyy')
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.last_active_name = active_app['NSApplicationName']
+                    # print(self.last_active_name)
+                    self.mytimer.stop()
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.onlist = []
+                    self.showlist0 = []
+                    resp = applescript.tell.app("System Events", '''
+                                            tell application "System Events"
+                                                set processName to name of processes
+                                                set processDic to processName
+                                                return processDic
+                                            end tell''')
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    assert resp.code == 0, resp.err
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    runlist = resp.out.split(', ')
+
+                    home_dir = str(Path.home())
+                    tarname1 = "OliveAppPath"
+                    fulldir1 = os.path.join(home_dir, tarname1)
+                    if not os.path.exists(fulldir1):
+                        os.mkdir(fulldir1)
+                    tarname2 = "tarlist.txt"
+                    fulldir2 = os.path.join(fulldir1, tarname2)
+                    cont = codecs.open(fulldir2, 'r', encoding='utf-8').read()
+                    tarlist = cont.split('\n')
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+
+                    for i in range(len(tarlist)):
+                        QApplication.processEvents()
+                        QApplication.restoreOverrideCursor()
+                        if tarlist[i] in runlist:
+                            QApplication.processEvents()
+                            QApplication.restoreOverrideCursor()
+                            cmd = f'''
+                                                on count_windows_on_current_space(process_name)
+                                                    tell application "System Events"
+                                                        tell process process_name
+                                                            return count of windows
+                                                        end tell
+                                                    end tell
+                                                end count_windows_on_current_space
+
+                                                on name_windows_on_current_space(process_name)
+                                                    tell application "System Events"
+                                                        tell process process_name
+                                                            #return name of windows
+                                                            set names to name of windows
+                                                            set AppleScript's text item delimiters to "///"
+                                                            set strnam to names as text
+                                                            return strnam
+                                                        end tell
+                                                    end tell
+                                                end name_windows_on_current_space
+
+                                                tell application "{tarlist[i]}"
+                                                    if my count_windows_on_current_space("{tarlist[i]}") > 0 then
+                                                        try
+                                                            return my name_windows_on_current_space("{tarlist[i]}")
+                                                        on error errorMessage
+                                                            return "F"
+                                                        end try
+                                                    end if
+                                                end tell'''
+                            QApplication.processEvents()
+                            QApplication.restoreOverrideCursor()
+                            result = subprocess.run(['osascript', '-e', cmd], capture_output=True, encoding='UTF-8')
+                            QApplication.processEvents()
+                            QApplication.restoreOverrideCursor()
+                            if result.stdout != '' and result.stdout != 'F':
+                                QApplication.processEvents()
+                                QApplication.restoreOverrideCursor()
+                                multilist = result.stdout.replace('\n', '').split('///')
+                                for n in range(len(multilist)):
+                                    QApplication.processEvents()
+                                    QApplication.restoreOverrideCursor()
+                                    if len(multilist[n]) > 15:
+                                        QApplication.processEvents()
+                                        QApplication.restoreOverrideCursor()
+                                        multilist[n] = multilist[n][0:12] + '\n' + multilist[n][12:]
+                                for m in range(len(multilist)):
+                                    QApplication.processEvents()
+                                    QApplication.restoreOverrideCursor()
+                                    multilist[m] = str(tarlist[i]) + '\n~' + str(m + 1) + '~\n' + multilist[m]
+                                    self.showlist0.append(multilist[m])
+
+                    showcont = '☆'.join(self.showlist0)
+                    with open('showlist.txt', 'w', encoding='utf-8') as f0:
+                        f0.write(showcont)
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.counter = 5
+                    self.mytimer.start(1000)
+                    w3.everytimefirst()
+                if active_app['NSApplicationName'] != self.last_active_name and self.counter == 0:
+                    #print('yyy')
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.last_active_name = active_app['NSApplicationName']
+                    #print(self.last_active_name)
+                    self.mytimer.stop()
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.onlist = []
+                    self.showlist0 = []
+                    resp = applescript.tell.app("System Events", '''
+                        tell application "System Events"
+                            set processName to name of processes
+                            set processDic to processName
+                            return processDic
+                        end tell''')
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    assert resp.code == 0, resp.err
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    runlist = resp.out.split(', ')
+
+                    home_dir = str(Path.home())
+                    tarname1 = "OliveAppPath"
+                    fulldir1 = os.path.join(home_dir, tarname1)
+                    if not os.path.exists(fulldir1):
+                        os.mkdir(fulldir1)
+                    tarname2 = "tarlist.txt"
+                    fulldir2 = os.path.join(fulldir1, tarname2)
+                    cont = codecs.open(fulldir2, 'r', encoding='utf-8').read()
+                    tarlist = cont.split('\n')
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+
+                    for i in range(len(tarlist)):
+                        QApplication.processEvents()
+                        QApplication.restoreOverrideCursor()
+                        if tarlist[i] in runlist:
+                            QApplication.processEvents()
+                            QApplication.restoreOverrideCursor()
+                            cmd = f'''
+                            on count_windows_on_current_space(process_name)
+                                tell application "System Events"
+                                    tell process process_name
+                                        return count of windows
+                                    end tell
+                                end tell
+                            end count_windows_on_current_space
+        
+                            on name_windows_on_current_space(process_name)
+                                tell application "System Events"
+                                    tell process process_name
+                                        #return name of windows
+                                        set names to name of windows
+                                        set AppleScript's text item delimiters to "///"
+                                        set strnam to names as text
+                                        return strnam
+                                    end tell
+                                end tell
+                            end name_windows_on_current_space
+        
+                            tell application "{tarlist[i]}"
+                                if my count_windows_on_current_space("{tarlist[i]}") > 0 then
+                                    try
+                                        return my name_windows_on_current_space("{tarlist[i]}")
+                                    on error errorMessage
+                                        return "F"
+                                    end try
+                                end if
+                            end tell'''
+                            QApplication.processEvents()
+                            QApplication.restoreOverrideCursor()
+                            result = subprocess.run(['osascript', '-e', cmd], capture_output=True, encoding='UTF-8')
+                            QApplication.processEvents()
+                            QApplication.restoreOverrideCursor()
+                            if result.stdout != '' and result.stdout != 'F':
+                                QApplication.processEvents()
+                                QApplication.restoreOverrideCursor()
+                                multilist = result.stdout.replace('\n', '').split('///')
+                                for n in range(len(multilist)):
+                                    QApplication.processEvents()
+                                    QApplication.restoreOverrideCursor()
+                                    if len(multilist[n]) > 15:
+                                        QApplication.processEvents()
+                                        QApplication.restoreOverrideCursor()
+                                        multilist[n] = multilist[n][0:12] + '\n' + multilist[n][12:]
+                                for m in range(len(multilist)):
+                                    QApplication.processEvents()
+                                    QApplication.restoreOverrideCursor()
+                                    multilist[m] = str(tarlist[i]) + '\n~' + str(m + 1) + '~\n' + multilist[m]
+                                    self.showlist0.append(multilist[m])
+
+                    showcont = '☆'.join(self.showlist0)
+                    with open('showlist.txt', 'w', encoding='utf-8') as f0:
+                        f0.write(showcont)
+                    QApplication.processEvents()
+                    QApplication.restoreOverrideCursor()
+                    self.counter = 5
+                    self.mytimer.start(1000)
+                    w3.everytimefirst()
+                if self.counter <= 0:
+                    self.counter = 5
+                    self.mytimer.start(1000)
+
+    def totalquit(self):
+        self.mytimer.stop()
+        app.quit()
+
+    def center(self):  # 设置窗口居中
+        qr = self.frameGeometry()
+        cp = self.screen().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
+
+    def keyPressEvent(self, e):  # 当页面显示的时候，按下esc键可关闭窗口
+        if e.key() == Qt.Key.Key_Escape.value:
+            self.close()
+
+    def activate(self):  # 设置窗口显示
+        resp = applescript.tell.app("System Events", '''
+        tell application "System Events"
+            set processName to name of processes
+            set processDic to processName
+            return processDic
+        end tell''')
+        assert resp.code == 0, resp.err
+        runnin = resp.out.replace(', ', '\n')
+        runninlist = runnin.split('\n')
+        runninlist.sort()
+        runnin2 = '\n'.join(runninlist)
+        self.te1.setText(runnin2)
+
+        home_dir = str(Path.home())
+        tarname1 = "OliveAppPath"
+        fulldir1 = os.path.join(home_dir, tarname1)
+        if not os.path.exists(fulldir1):
+            os.mkdir(fulldir1)
+        tarname2 = "tarlist.txt"
+        fulldir2 = os.path.join(fulldir1, tarname2)
+        cont = codecs.open(fulldir2, 'r', encoding='utf-8').read()
+        self.te2.setText(cont)
+
+        self.show()
+        self.raise_()
+        self.activateWindow()
+
+style_sheet_cha = '''
+    QTabWidget::pane {
+        border: 1px solid #ECECEC;
+        background: #ECECEC;
+        border-radius: 9px;
+}
+    QWidget{
+        border: transparent;
+        background: transparent;
+        border-radius: 20px;
+}
+    QWidget#Main {
+        border: 1px solid #ECECEC;
+        background-image:url(back4.png);
+        border-radius: 20px;
+}
+    QWidget#Main:before {
+        box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+        filter: blur(10px);
+}
+    QPushButton{
+        border: 2px solid #989896;
+        background-color: transparent;
+        border-radius: 12px;
+        padding: 1px;
+        color: #000000
+}
+    QPushButton:hover{
+        border: 4px outset black;
+        background-color: transparent;
+        border-radius: 12px;
+        padding: 1px;
+        color: #000000
+}
+    QPushButton:pressed{
+        border: 4px outset black;
+        background-color: #989896;
+        border-radius: 12px;
+        padding: 1px;
+        color: #000000
+}
+    QPlainTextEdit{
+        border: 1px solid grey;  
+        border-radius:4px;
+        padding: 1px 5px 1px 3px; 
+        background-clip: border;
+        background-color: #F3F2EE;
+        color: #000000;
+        font: 14pt Times New Roman;
+}
+    QPlainTextEdit#edit{
+        border: 1px solid grey;  
+        border-radius:4px;
+        padding: 1px 5px 1px 3px; 
+        background-clip: border;
+        background-color: #FFFFFF;
+        color: rgb(113, 113, 113);
+        font: 14pt Helvetica;
+}
+    QLineEdit{
+        border-radius:4px;
+        border: 1px solid gray;
+        background-color: #FFFFFF;
+}
+    QTextEdit{
+        border: 1px solid grey;  
+        border-radius:4px;
+        padding: 1px 5px 1px 3px; 
+        background-clip: border;
+        background-color: #F3F2EE;
+        color: #000000;
+        font: 14pt Times New Roman;
+}
+'''
+style_sheet_ori = '''
+    QTabWidget::pane {
+        border: 1px solid #ECECEC;
+        background: #ECECEC;
+        border-radius: 9px;
+}
+    QPushButton{
+        border: 1px outset grey;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+        padding: 1px;
+        color: #000000
+}
+    QPushButton:pressed{
+        border: 1px outset grey;
+        background-color: #0085FF;
+        border-radius: 4px;
+        padding: 1px;
+        color: #FFFFFF
+}
+    QPlainTextEdit{
+        border: 1px solid grey;  
+        border-radius:4px;
+        padding: 1px 5px 1px 3px; 
+        background-clip: border;
+        background-color: #F3F2EE;
+        color: #000000;
+        font: 14pt Times New Roman;
+}
+    QPlainTextEdit#edit{
+        border: 1px solid grey;  
+        border-radius:4px;
+        padding: 1px 5px 1px 3px; 
+        background-clip: border;
+        background-color: #FFFFFF;
+        color: rgb(113, 113, 113);
+        font: 14pt Helvetica;
+}
+    QLineEdit{
+        border-radius:4px;
+        border: 1px solid gray;
+        background-color: #FFFFFF;
+}
+    QTextEdit{
+        border: 1px solid grey;  
+        border-radius:4px;
+        padding: 1px 5px 1px 3px; 
+        background-clip: border;
+        background-color: #F3F2EE;
+        color: #000000;
+        font: 14pt Times New Roman;
+}
+'''
+
+
+if __name__ == '__main__':
+    w1 = window_about()  # about
+    w2 = window_update()  # update
+    w3 = MyWidget()
+    w4 = window4()
+    action1.triggered.connect(w1.activate)
+    action2.triggered.connect(w2.activate)
+    action3.triggered.connect(w3.activate)
+    action4.triggered.connect(w4.activate)
+    action5.triggered.connect(w4.onrunstart)
+    button_action.triggered.connect(w3.key_activate)
+    tray.activated.connect(w3.tray_activate)
+    quit.triggered.connect(w4.totalquit)
+    w1.setStyleSheet(style_sheet_ori)
+    w2.setStyleSheet(style_sheet_ori)
+    w4.setStyleSheet(style_sheet_ori)
+    w3.setStyleSheet(style_sheet_cha)
+    app.exec()
+    
