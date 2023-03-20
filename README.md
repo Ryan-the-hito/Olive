@@ -40,7 +40,7 @@
 
 ## ⚙️下载使用：
 
-1. 在 Release 或者 compiled 文件夹里面找到最新的版本，下载，将解压的 .app 软件放入程序文件夹（Application）中。
+1. 在 Release 里面找到最新的版本，下载，将解压的 .app 软件放入程序文件夹（Application）中。
 
    ![uRYuNsb](https://i.imgur.com/uRYuNsb.png)
 
