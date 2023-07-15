@@ -1,4 +1,4 @@
-# 🫒Olive: A multi-window manager
+# 🫒Olive: A Multi-window Manager on macOS
 
 ![VperIw2](https://i.imgur.com/VperIw2.png)
 
@@ -48,7 +48,7 @@
 
 3. 点击图标，就会弹出窗口选择界面，但是第一次使用的时候，应该还会弹出权限窗口，请给 Olive 提供 Accessibility 权限。（Olive 可以完全离线使用，不会对您的隐私带来任何影响）**关于更新：**更新时请在发布页面下载最新的软件打包并将其拖入程序文件夹替换原有软件。并且，由于 macOS 的限制，每次更新之后请再次授予 Olive 以Accessibility 权限。具体操作是：点击减号，将 Olive 从 Accessibility 的既有列表中移除，再点击加号，将 Olive 添加进入即可。
 
-   ![4bI0Mtc](https://i.imgur.com/4bI0Mtc.png)
+   ![4bI0Mtc](/Users/ryanshenefield/Downloads/4bI0Mtc.png)
 
 4. 点击图标，选择“Start Olive”，此后，当切换窗口时，Olive 会每隔 5 秒左右检测正在运行的窗口（仅当前桌面**未**最小化/隐藏的窗口和所有桌面最小化/隐藏的窗口，不包括其他桌面**未**最小化/隐藏的窗口）并返回其标题。当你需要使用 Olive 的时候，点击图标（或者选单中的 “Select windows”）即可弹出窗口选择界面。选择界面将显示 20 个窗口，包括软件名称、窗口所在软件中的序号和窗口标题。每当你控制一个新软件的最大化和最小化时，mac 会弹出许可请求，请给予 Olive 这一权限。如果未授予这个权限，Olive 将无法正常运行。若在授权后 Olive 没有第一时间正确控制窗口，请再尝试一次，若仍无效，请考虑是否未将软件名称列入白名单（第 5 步），或考虑该软件无法被 AppleScript 控制（请移步“问题检查”）。
 
